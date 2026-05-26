@@ -519,6 +519,7 @@
             <a href="#inicio" class="nav-link" onclick="closeMenu()">Inicio</a>
             <a href="#productos" class="nav-link" onclick="closeMenu()">Productos</a>
             <a href="#garantias" class="nav-link" onclick="closeMenu()">Garantías</a>
+            <a href="#nosotros" class="nav-link" onclick="closeMenu()">Nosotros</a>
             <a href="#ayuda" class="nav-link" onclick="closeMenu()">Ayuda</a>
             <a href="#pedido" class="nav-btn" onclick="closeMenu()">Hacer Pedido</a>
         </nav>
@@ -586,6 +587,13 @@
                 </div>
             </div>
         </section>
+        
+        <section id="nosotros">
+            <h2 class="seccion-titulo">¿Quiénes Somos?</h2>
+            <p style="max-width: 800px; margin: 0 auto; color: #555555; line-height: 1.6; text-align: center;">
+                En CareSkin, somos una empresa comprometida con el bienestar integral de las familias colombianas. Nuestra misión es ofrecer soluciones de cuidado personal que fusionen la sabiduría tradicional con la innovación dermatológica, garantizando productos seguros, efectivos y accesibles para todas las edades.
+            </p>
+        </section>
 
         <section id="ayuda">
             <h2 class="seccion-titulo">Preguntas Frecuentes</h2>
@@ -633,45 +641,151 @@
             <div class="formulario-box">
                 <h3 style="color:#0b2f61; margin-bottom: 20px; text-align:center;">Formulario de Solicitud</h3>
                 <form>
-                    <div class="form-group">
-                        <label class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-input" placeholder="Tu nombre aquí" required>
-                    </div>
+                  <form onsubmit="enviarSolicitud(event)">
 
-                    <div class="form-group">
-                        <label class="form-label">Selecciona el Producto</label>
-                        <select class="form-select" required>
-                            <option value="">-- Elige una opción --</option>
-                            <option value="pomada">Pomada Verde</option>
-                            <option value="crema">Piel de Ángel</option>
-                        </select>
-                    </div>
+    <div class="form-group">
+        <label class="form-label">Nombre Completo</label>
 
-                    <div class="form-group">
-                        <label class="form-label">Asesora de Atención</label>
-                        <div class="asesoras-container">
-                            <div class="asesora-option">
-                                <input type="radio" name="asesora" id="ase1" value="angelica" required>
-                                <label for="ase1" class="asesora-label">Angélica</label>
-                            </div>
-                            <div class="asesora-option">
-                                <input type="radio" name="asesora" id="ase2" value="liliana">
-                                <label for="ase2" class="asesora-label">Liliana</label>
-                            </div>
-                            <div class="asesora-option">
-                                <input type="radio" name="asesora" id="ase3" value="valery">
-                                <label for="ase3" class="asesora-label">Valery</label>
-                            </div>
-                        </div>
-                    </div>
+        <input
+            type="text"
+            id="nombre"
+            class="form-input"
+            placeholder="Tu nombre aquí"
+            required>
+    </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Mensaje o Detalles de Envío</label>
-                        <textarea class="form-textarea" rows="4" placeholder="Escribe aquí tu dirección o consultas adicionales..." required></textarea>
-                    </div>
+    <div class="form-group">
+        <label class="form-label">Selecciona el Producto</label>
 
-                    <button type="submit" class="form-submit-btn">Enviar Solicitud Oficial</button>
-                </form>
+        <select
+            id="producto"
+            class="form-select"
+            required>
+
+            <option value="">-- Elige una opción --</option>
+            <option value="Pomada Verde">Pomada Verde</option>
+            <option value="Piel de Ángel">Piel de Ángel</option>
+
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Asesora de Atención</label>
+
+        <div class="asesoras-container">
+
+            <div class="asesora-option">
+
+                <input
+                    type="radio"
+                    name="asesora"
+                    id="ase1"
+                    value="573042875009"
+                    required>
+
+                <label for="ase1" class="asesora-label">
+                    Angélica
+                </label>
+
+            </div>
+
+            <div class="asesora-option">
+
+                <input
+                    type="radio"
+                    name="asesora"
+                    id="ase2"
+                    value="573143248100">
+
+                <label for="ase2" class="asesora-label">
+                    Liliana
+                </label>
+          
+            </div>
+
+            <div class="asesora-option">
+
+                <input
+                    type="radio"
+                    name="asesora"
+                    id="ase3"
+                    value="573219585509">
+
+                <label for="ase3" class="asesora-label">
+                    Valery
+                </label>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">
+            Mensaje o Detalles de Envío
+        </label>
+
+        <textarea
+            id="mensaje"
+            class="form-textarea"
+            rows="4"
+            placeholder="Escribe aquí tu dirección o consultas adicionales..."
+            required></textarea>
+    </div>
+
+    <button type="submit" class="form-submit-btn">
+        Enviar Solicitud Oficial
+    </button>
+
+</form>
+
+<script>
+
+function enviarSolicitud(event) {
+
+    event.preventDefault();
+
+    const nombre =
+    document.getElementById("nombre").value;
+
+    const producto =
+    document.getElementById("producto").value;
+
+    const mensaje =
+    document.getElementById("mensaje").value;
+
+    const asesora =
+    document.querySelector(
+        'input[name="asesora"]:checked'
+    );
+
+    if (!asesora) {
+
+        alert("Selecciona una asesora");
+
+        return;
+    }
+
+    const numero = asesora.value;
+
+    const texto =
+`Hola, deseo realizar un pedido.
+
+👤 Nombre: ${nombre}
+
+🛍️ Producto: ${producto}
+
+📦 Detalles:
+${mensaje}`;
+
+    const url =
+`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+    window
+
+}
+</script>
+
             </div>
         </section>
 
@@ -704,6 +818,30 @@
             menu.classList.remove('active');
             btn.classList.remove('open');
         }
+        function enviarPedido() {
+    // 1. Obtenemos el número de la vendedora seleccionada
+    const numero = document.getElementById('asesora').value;
+    
+    // 2. Obtenemos los datos del resto del formulario
+    const nombre = document.getElementById('nombre').value;
+    const producto = document.getElementById('producto').value;
+    const mensaje = document.getElementById('mensaje').value;
+
+    // 3. Creamos el texto usando backticks (`)
+    // Esto permite saltos de línea y que las variables funcionen
+    const texto = `Hola, deseo realizar un pedido.
+    
+Nombre: ${nombre}
+Producto: ${producto}
+Detalles: ${mensaje}`;
+
+    // 4. Construimos la URL correctamente
+    // encodeURIComponent convierte los espacios y caracteres especiales para la URL
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+    // 5. Abrimos la ventana
+    window.open(url, "_blank");
+}
     </script>
 </body>
 </html>
