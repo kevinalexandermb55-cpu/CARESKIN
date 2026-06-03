@@ -639,105 +639,33 @@
             <a href="https://wa.me/573042875009?text=Hola,%20solicito%20información%20sobre%20los%20productos." class="whatsapp-btn" target="_blank">Contactar vía WhatsApp</a>
 
             <div class="formulario-box">
-                <h3 style="color:#0b2f61; margin-bottom: 20px; text-align:center;">Formulario de Solicitud</h3>
-                <form>
-                  <form onsubmit="enviarSolicitud(event)">
-
-    <div class="form-group">
-        <label class="form-label">Nombre Completo</label>
-
-        <input
-            type="text"
-            id="nombre"
-            class="form-input"
-            placeholder="Tu nombre aquí"
-            required>
-    </div>
-
-    <div class="form-group">
-        <label class="form-label">Selecciona el Producto</label>
-
-        <select
-            id="producto"
-            class="form-select"
-            required>
-
-            <option value="">-- Elige una opción --</option>
-            <option value="Pomada Verde">Pomada Verde</option>
-            <option value="Piel de Ángel">Piel de Ángel</option>
-
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label class="form-label">Asesora de Atención</label>
-
-        <div class="asesoras-container">
-
-            <div class="asesora-option">
-
-                <input
-                    type="radio"
-                    name="asesora"
-                    id="ase1"
-                    value="573042875009"
-                    required>
-
-                <label for="ase1" class="asesora-label">
-                    Angélica
-                </label>
-
-            </div>
-
-            <div class="asesora-option">
-
-                <input
-                    type="radio"
-                    name="asesora"
-                    id="ase2"
-                    value="573143248100">
-
-                <label for="ase2" class="asesora-label">
-                    Liliana
-                </label>
-          
-            </div>
-
-            <div class="asesora-option">
-
-                <input
-                    type="radio"
-                    name="asesora"
-                    id="ase3"
-                    value="573219585509">
-
-                <label for="ase3" class="asesora-label">
-                    Valery
-                </label>
-
-            </div>
-
+    <h3 style="color: #0b2f61; margin-bottom: 20px; text-align: center;">Formulario de Solicitud</h3>
+    <form id="pedidoForm" onsubmit="enviarPedido(event)">
+        <div class="form-group">
+            <label class="form-label">Nombre Completo:</label>
+            <input type="text" id="nombre" class="form-input" required placeholder="Tu nombre">
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="form-label">
-            Mensaje o Detalles de Envío
-        </label>
+        <div class="form-group">
+            <label class="form-label">Producto de interés:</label>
+            <select id="producto" class="form-select" required>
+                <option value="Pomada Verde">Pomada Verde</option>
+                <option value="Crema Infantil Piel de Ángel">Crema Infantil Piel de Ángel</option>
+            </select>
+        </div>
 
-        <textarea
-            id="mensaje"
-            class="form-textarea"
-            rows="4"
-            placeholder="Escribe aquí tu dirección o consultas adicionales..."
-            required></textarea>
-    </div>
+        <div class="form-group">
+            <label class="form-label">Elige a tu asesora:</label>
+            <select id="vendedora" class="form-select" required>
+                <option value="573042875009">Angélica</option>
+                <option value="573143248100">Liliana</option>
+                <option value="573219585509">Valery</option>
+            </select>
+        </div>
 
-    <button type="submit" class="form-submit-btn">
-        Enviar Solicitud Oficial
-    </button>
-
-</form>
+        <button type="submit" class="form-submit-btn">Enviar Pedido por WhatsApp</button>
+    </form>
+</div>
 
 <script>
 
@@ -781,7 +709,7 @@ ${mensaje}`;
     const url =
 `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
 
-    window
+    window.open(url, "_blank");
 
 }
 </script>
@@ -818,30 +746,25 @@ ${mensaje}`;
             menu.classList.remove('active');
             btn.classList.remove('open');
         }
-        function enviarPedido() {
-    // 1. Obtenemos el número de la vendedora seleccionada
-    const numero = document.getElementById('asesora').value;
-    
-    // 2. Obtenemos los datos del resto del formulario
-    const nombre = document.getElementById('nombre').value;
-    const producto = document.getElementById('producto').value;
-    const mensaje = document.getElementById('mensaje').value;
+       
+    function enviarPedido(event) {
+        // 1. Evita que el formulario se recargue
+        event.preventDefault(); 
 
-    // 3. Creamos el texto usando backticks (`)
-    // Esto permite saltos de línea y que las variables funcionen
-    const texto = `Hola, deseo realizar un pedido.
-    
-Nombre: ${nombre}
-Producto: ${producto}
-Detalles: ${mensaje}`;
+        // 2. Capturamos los datos que el usuario escribió o seleccionó
+        const nombre = document.getElementById('nombre').value;
+        const producto = document.getElementById('producto').value;
+        const numeroVendedora = document.getElementById('vendedora').value;
 
-    // 4. Construimos la URL correctamente
-    // encodeURIComponent convierte los espacios y caracteres especiales para la URL
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+        // 3. Creamos el mensaje con los datos capturados
+        const mensaje = `Hola, mi nombre es ${nombre}. Estoy interesado/a en comprar: ${producto}. ¿Me podrías brindar más información?`;
 
-    // 5. Abrimos la ventana
-    window.open(url, "_blank");
-}
-    </script>
+        // 4. Construimos la URL de WhatsApp (usando encodeURIComponent para que el texto sea válido en la web)
+        const urlWhatsApp = `https://wa.me/${numeroVendedora}?text=${encodeURIComponent(mensaje)}`;
+
+        // 5. Abrimos WhatsApp en una nueva pestaña
+        window.open(urlWhatsApp, '_blank');
+    }
+</script>
 </body>
 </html>
